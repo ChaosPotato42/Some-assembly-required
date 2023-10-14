@@ -279,6 +279,8 @@ int main()
 </code></pre>
 <p>As you can see, this program has no end point - it loops forever. To exit, either use ctrl-c to kill the program from the terminal, or ctrl-d to send an EOF (end of file) character, which will cause <code>getline</code> to fail (which we catch inside the if statements).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="files"><a class="header" href="#files">Files</a></h1>
+<p>At some point, the day will come when you need to read or write a file. We can't rely on the disk giving us the data correctly, so there is a lot of error handling involved.</p>
+<p>TL;DR: this is going to sting a bit</p>
 
                     </main>
 
