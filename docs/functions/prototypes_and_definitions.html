@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../introduction/arguments.html"><strong aria-hidden="true">1.2.</strong> Arguments</a></li><li class="chapter-item expanded "><a href="../introduction/input.html"><strong aria-hidden="true">1.3.</strong> Console Input</a></li><li class="chapter-item expanded "><a href="../introduction/files.html"><strong aria-hidden="true">1.4.</strong> Files</a></li></ol></li><li class="chapter-item expanded "><a href="../functions.html"><strong aria-hidden="true">2.</strong> Functions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../functions/prototypes_and_definitions.html" class="active"><strong aria-hidden="true">2.1.</strong> Prototypes and Definitions</a></li><li class="chapter-item expanded "><a href="../functions/return_types_and_arguments.html"><strong aria-hidden="true">2.2.</strong> Return types and arguments</a></li><li class="chapter-item expanded "><a href="../functions/definition_declaration.html"><strong aria-hidden="true">2.3.</strong> Definition Vs. Declaration</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../introduction/arguments.html"><strong aria-hidden="true">1.2.</strong> Arguments</a></li><li class="chapter-item expanded "><a href="../introduction/input.html"><strong aria-hidden="true">1.3.</strong> Console Input</a></li><li class="chapter-item expanded "><a href="../introduction/files.html"><strong aria-hidden="true">1.4.</strong> Files</a></li></ol></li><li class="chapter-item expanded "><a href="../functions.html"><strong aria-hidden="true">2.</strong> Functions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../functions/prototypes_and_definitions.html" class="active"><strong aria-hidden="true">2.1.</strong> Prototypes and Definitions</a></li><li class="chapter-item expanded "><a href="../functions/return_types_and_arguments.html"><strong aria-hidden="true">2.2.</strong> Return types and arguments</a></li><li class="chapter-item expanded "><a href="../functions/definition_declaration.html"><strong aria-hidden="true">2.3.</strong> Definition Vs. Declaration</a></li></ol></li><li class="chapter-item expanded "><a href="../makefiles.html"><strong aria-hidden="true">3.</strong> Makefiles</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -141,6 +141,20 @@
 <li>Its return type</li>
 <li>Its parameters</li>
 </ul>
+<p>Let's take a look at <code>main</code> as an example:</p>
+<pre><code class="language-C++">int main(int argc, char** argv);
+</code></pre>
+<p>This version of <code>main</code> expects an integer and an array of strings, and returns an integer.</p>
+<p>Another example is <code>printf</code>:</p>
+<pre><code class="language-C++">int printf(const char* format, ...);
+</code></pre>
+<p>This function expects a string, as well as what is called 'variadic arguments'. This means that the number of arguments supplied after the string is variable, and in the case of <code>printf</code> is equal to the number of '%' arguments inside the <code>format</code> string. <code>printf</code> returns an integer which, on success, returns the number of characters written (this is often ignored as it is <code>printf</code> should never fail on a normal system).</p>
+<p>A full function definition is a function prototype followed by a block:</p>
+<pre><code class="language-C++">int main()
+{
+    // block
+}
+</code></pre>
 
                     </main>
 

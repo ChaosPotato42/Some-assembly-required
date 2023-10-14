@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="introduction/hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="introduction/arguments.html"><strong aria-hidden="true">1.2.</strong> Arguments</a></li><li class="chapter-item expanded "><a href="introduction/input.html"><strong aria-hidden="true">1.3.</strong> Console Input</a></li><li class="chapter-item expanded "><a href="introduction/files.html"><strong aria-hidden="true">1.4.</strong> Files</a></li></ol></li><li class="chapter-item expanded "><a href="functions.html"><strong aria-hidden="true">2.</strong> Functions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="functions/prototypes_and_definitions.html"><strong aria-hidden="true">2.1.</strong> Prototypes and Definitions</a></li><li class="chapter-item expanded "><a href="functions/return_types_and_arguments.html"><strong aria-hidden="true">2.2.</strong> Return types and arguments</a></li><li class="chapter-item expanded "><a href="functions/definition_declaration.html"><strong aria-hidden="true">2.3.</strong> Definition Vs. Declaration</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="introduction/hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="introduction/arguments.html"><strong aria-hidden="true">1.2.</strong> Arguments</a></li><li class="chapter-item expanded "><a href="introduction/input.html"><strong aria-hidden="true">1.3.</strong> Console Input</a></li><li class="chapter-item expanded "><a href="introduction/files.html"><strong aria-hidden="true">1.4.</strong> Files</a></li></ol></li><li class="chapter-item expanded "><a href="functions.html"><strong aria-hidden="true">2.</strong> Functions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="functions/prototypes_and_definitions.html"><strong aria-hidden="true">2.1.</strong> Prototypes and Definitions</a></li><li class="chapter-item expanded "><a href="functions/return_types_and_arguments.html"><strong aria-hidden="true">2.2.</strong> Return types and arguments</a></li><li class="chapter-item expanded "><a href="functions/definition_declaration.html"><strong aria-hidden="true">2.3.</strong> Definition Vs. Declaration</a></li></ol></li><li class="chapter-item expanded "><a href="makefiles.html"><strong aria-hidden="true">3.</strong> Makefiles</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -334,8 +334,66 @@ int fprintf(FILE* stream, const char* format, ...);
 <li>Its return type</li>
 <li>Its parameters</li>
 </ul>
+<p>Let's take a look at <code>main</code> as an example:</p>
+<pre><code class="language-C++">int main(int argc, char** argv);
+</code></pre>
+<p>This version of <code>main</code> expects an integer and an array of strings, and returns an integer.</p>
+<p>Another example is <code>printf</code>:</p>
+<pre><code class="language-C++">int printf(const char* format, ...);
+</code></pre>
+<p>This function expects a string, as well as what is called 'variadic arguments'. This means that the number of arguments supplied after the string is variable, and in the case of <code>printf</code> is equal to the number of '%' arguments inside the <code>format</code> string. <code>printf</code> returns an integer which, on success, returns the number of characters written (this is often ignored as it is <code>printf</code> should never fail on a normal system).</p>
+<p>A full function definition is a function prototype followed by a block:</p>
+<pre><code class="language-C++">int main()
+{
+    // block
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="return-types-and-arguments"><a class="header" href="#return-types-and-arguments">Return types and arguments</a></h1>
+<p>Functions can accept and produce data. This can be very useful for abstracting complex processes such as reading in files or performing calculations. This data has to be specified in the prototype. This is where arguments (parameters) and return types come in.</p>
+<p>An argument is data supplied to a function and must match the parameter in the funciton. For example:</p>
+<pre><code class="language-C++">// accepts 2 integers, returns an integer
+int add(int a, int b)
+{
+    // must match return type
+    return a + b;
+}
+
+int main()
+{
+    // must pass 2 integers
+    // result is an integer
+    int result = add(3, 5);
+}
+</code></pre>
+<p>The return type of a function is a single value that is produced when the function is run. When a <code>return</code> is executed, it must match the return type, and causes the function to exit and produce the value returned. In the case of a function returning <code>void</code>, no value is given during return as there is no return type.</p>
+<p>Another method of returning values is using return paremeters. These are pointers to values, which the function modifies before returning. This can be useful if the function returns multiple values (e.g. if the function returns data and an exit code).</p>
+<pre><code class="language-C++">void add(int* result, int a, int b)
+{
+    *result = a + b;
+}
+
+int main()
+{
+    int result;
+    add(&amp;result, 3, 5);
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="definition-vs-declaration"><a class="header" href="#definition-vs-declaration">Definition Vs. Declaration</a></h1>
+<p>Functions can be defined and declared. So what is the difference between the two and what are they used for?</p>
+<p>A declaration is simply a function prototype followed by a semicolon:</p>
+<pre><code class="language-C++">int add(int a, int b);
+</code></pre>
+<p>A definition is a function prototype followed by a scope:</p>
+<pre><code class="language-C++">int add(int a, int b)
+{
+    return a + b;
+}
+</code></pre>
+<p>A definition also counts as a declaration.</p>
+<p>This can be useful, because a function that has been declared can then be defined later. In C, functions can only be used once they have been declared (any code above the declaration can't use the function). Declaring a function before it is defined can be used if two function each depend on eachother, or to create external linkage.</p>
+<p>Functions do not need to be declared in the same file they are defined. This means we can declare a function in a 'header file' (.h file), which we can <code>#include</code> into a 'source file' (.c file). The definition can live inside any source file. This will work as long as all source files are compiled and linked together.</p>
+<p>This leads to more complex compiling, and may require a makefile, but leads to a much more organised project. This will be covered in the next chapter.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="makefiles"><a class="header" href="#makefiles">Makefiles</a></h1>
 
                     </main>
 
