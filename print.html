@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="introduction/hello_world.html"><strong aria-hidden="true">1.1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="introduction/arguments.html"><strong aria-hidden="true">1.2.</strong> Arguments</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -150,7 +150,7 @@
     // our code goes here
 }
 </code></pre>
-<p>To be able to print a message, we need to include a file to give us access to <code>printf</code>. This is done using <code>#include &lt;file.h&gt;</code> or <code>#include &quot;file.h&quot;</code>. The differences between these two methods will be explained later, but for now either will work perfectly fine.</p>
+<p>To be able to print a message, we need to include a file to give us access to <code>printf</code>. This is done using <code>#include &lt;stdio.h&gt;</code> or <code>#include &quot;stdio.h&quot;</code>. The differences between these two methods will be explained later, but for now either will work perfectly fine.</p>
 <pre><code class="language-C++">#include &lt;stdio.h&gt;
 
 ...
@@ -174,6 +174,7 @@ int main()
 }
 </code></pre>
 <p>Our program is now complete - but we can't run it yet. It needs to be compiled. For a simple program like this, it is easy. Simply type <code>g++ main.cpp -o main</code> to compile the program. It can now be run using <code>./main</code> and you should see 'Hello world' appear in the terminal.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
 
                     </main>
 
