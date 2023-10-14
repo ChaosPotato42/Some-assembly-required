@@ -136,7 +136,7 @@
                     <main>
                         <h1 id="console-input"><a class="header" href="#console-input">Console Input</a></h1>
 <p>Getting input from the console can be complicated. We need to create an empty string as well as values to store it's initial length. We then pass this to <code>getline</code>, which has the following signature:</p>
-<pre><code class="language-C++">ssize_t getline(char** lineptr, size_t* n, FILE* stream)
+<pre><code class="language-C++">ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 </code></pre>
 <p>This function will return the number of characters in the string, or -1 if it fails. Let's modify our addition program to use stdin instead of command line arguments.</p>
 <pre><code class="language-C++">#include &lt;stdio.h&gt;

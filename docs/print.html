@@ -141,7 +141,7 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 <p>Let's start with the basics - a simple 'hello world' example. To do this we need to understand a few things. First, we need to understand where the program will start. In C and C++, this is at the <code>main</code> function. We will visit how this works later, but for now, all of the code that the program runs will live inside <code>main</code>. Create a file called <code>main.cpp</code> and follow the example.</p>
 <p><code>main</code> has the function signature:</p>
-<pre><code class="language-C++">int main()
+<pre><code class="language-C++">int main();
 </code></pre>
 <p>This will also be explained later, but for now, let's get our hello world program working.</p>
 <p>Our code must live inside a 'block', which is the area between two curly braces <code>{}</code>. This defines what is 'inside' a function. Any code that is outside of a block must be a definition or declaration (not code that runs) otherwise it will cause an error.</p>
@@ -233,7 +233,7 @@ int main(int argc, char** argv)
 <p>As with '%s', '%f' tells printf to print an argument, but in this case it is a float (aka a 'real'), which is a decimal number.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="console-input"><a class="header" href="#console-input">Console Input</a></h1>
 <p>Getting input from the console can be complicated. We need to create an empty string as well as values to store it's initial length. We then pass this to <code>getline</code>, which has the following signature:</p>
-<pre><code class="language-C++">ssize_t getline(char** lineptr, size_t* n, FILE* stream)
+<pre><code class="language-C++">ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 </code></pre>
 <p>This function will return the number of characters in the string, or -1 if it fails. Let's modify our addition program to use stdin instead of command line arguments.</p>
 <pre><code class="language-C++">#include &lt;stdio.h&gt;
@@ -290,10 +290,41 @@ int main()
 <tr><td>&quot;w+&quot;</td><td>write extended</td><td>Create a file for read/write</td><td>Destroy contents</td><td>Create new</td></tr>
 <tr><td>&quot;a+&quot;</td><td>append extended</td><td>Open a file for read/write</td><td>Write to end</td><td>Create new</td></tr>
 </tbody></table>
+<p>Additionally, &quot;x&quot; can be added, which forces the function to fail if the file exists. &quot;t&quot; can be added to force text mode (which is the default), where '\n', '\t', etc. are escaped into the relevant characters. &quot;b&quot; can be added to force binary mode where characters are not escaped.</p>
 <p>To open a file, we need to call <code>fopen</code>, which has the following signature:</p>
 <pre><code class="language-C++">FILE* fopen(const char* filename, const char* mode);
 </code></pre>
 <p>This return a pointer to a file handle, and requires a filename and a mode from the table above.</p>
+<p>Once we are done with a file handle, we can close it using <code>fclose</code>, which has the signautre:</p>
+<pre><code class="language-C++">int fclose(FILE* stream);
+</code></pre>
+<p><code>fclose</code> returns 0 on success and <code>EOF</code> on fail.</p>
+<p>A string can be written to a file using <code>fputs</code> or <code>fprintf</code>, which have the following signatures:</p>
+<pre><code class="language-C++">int fputs(const char* str, FILE* stream);
+int fprintf(FILE* stream, const char* format, ...);
+</code></pre>
+<p><code>fprintf</code> is identical to <code>printf</code>, but accepts a file handle instead of using <code>stdout</code>. The same '%' arguments can be used in any standard library function ending in <code>printf</code>.</p>
+<p>To write a single character, use <code>fputc</code>:</p>
+<pre><code class="language-C++">int fputc(int ch, FILE* stream);
+</code></pre>
+<p>Reading a file is a bit more complicated. It is possible to read single characters using <code>fgetc</code>:</p>
+<pre><code class="language-C++">int fgetc(FILE* stream);
+</code></pre>
+<p>However, it is often easier to read the whole file at once. In this case, it is easier to create a function to read a whole file:</p>
+<pre><code class="language-C++">char* read_file(const char* filepath)
+{
+    FILE* file = fopen(filepath, &quot;rt&quot;); // open the file
+    fseek(file, 0, SEEK_END); // go to the end of the file
+    unsigned long length = ftell(file); // get the current position (aka the length of the file)
+    char* data = (char*)malloc(length + 1); // allocate the string
+    memset(data, 0, length + 1); // clear the string
+    rewind(file); // go to start of file
+    fread(data, 1, length, file); // read in the data
+    fclose(file); // close the file
+    return file; // return our string
+}
+</code></pre>
+<p>This function can be called by supplying a file name. The string returned must be cleaned up using <code>free</code> once it is no longer needed.</p>
 
                     </main>
 

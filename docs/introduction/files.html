@@ -146,10 +146,41 @@
 <tr><td>&quot;w+&quot;</td><td>write extended</td><td>Create a file for read/write</td><td>Destroy contents</td><td>Create new</td></tr>
 <tr><td>&quot;a+&quot;</td><td>append extended</td><td>Open a file for read/write</td><td>Write to end</td><td>Create new</td></tr>
 </tbody></table>
+<p>Additionally, &quot;x&quot; can be added, which forces the function to fail if the file exists. &quot;t&quot; can be added to force text mode (which is the default), where '\n', '\t', etc. are escaped into the relevant characters. &quot;b&quot; can be added to force binary mode where characters are not escaped.</p>
 <p>To open a file, we need to call <code>fopen</code>, which has the following signature:</p>
 <pre><code class="language-C++">FILE* fopen(const char* filename, const char* mode);
 </code></pre>
 <p>This return a pointer to a file handle, and requires a filename and a mode from the table above.</p>
+<p>Once we are done with a file handle, we can close it using <code>fclose</code>, which has the signautre:</p>
+<pre><code class="language-C++">int fclose(FILE* stream);
+</code></pre>
+<p><code>fclose</code> returns 0 on success and <code>EOF</code> on fail.</p>
+<p>A string can be written to a file using <code>fputs</code> or <code>fprintf</code>, which have the following signatures:</p>
+<pre><code class="language-C++">int fputs(const char* str, FILE* stream);
+int fprintf(FILE* stream, const char* format, ...);
+</code></pre>
+<p><code>fprintf</code> is identical to <code>printf</code>, but accepts a file handle instead of using <code>stdout</code>. The same '%' arguments can be used in any standard library function ending in <code>printf</code>.</p>
+<p>To write a single character, use <code>fputc</code>:</p>
+<pre><code class="language-C++">int fputc(int ch, FILE* stream);
+</code></pre>
+<p>Reading a file is a bit more complicated. It is possible to read single characters using <code>fgetc</code>:</p>
+<pre><code class="language-C++">int fgetc(FILE* stream);
+</code></pre>
+<p>However, it is often easier to read the whole file at once. In this case, it is easier to create a function to read a whole file:</p>
+<pre><code class="language-C++">char* read_file(const char* filepath)
+{
+    FILE* file = fopen(filepath, &quot;rt&quot;); // open the file
+    fseek(file, 0, SEEK_END); // go to the end of the file
+    unsigned long length = ftell(file); // get the current position (aka the length of the file)
+    char* data = (char*)malloc(length + 1); // allocate the string
+    memset(data, 0, length + 1); // clear the string
+    rewind(file); // go to start of file
+    fread(data, 1, length, file); // read in the data
+    fclose(file); // close the file
+    return file; // return our string
+}
+</code></pre>
+<p>This function can be called by supplying a file name. The string returned must be cleaned up using <code>free</code> once it is no longer needed.</p>
 
                     </main>
 
