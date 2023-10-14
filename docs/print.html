@@ -394,6 +394,15 @@ int main()
 <p>Functions do not need to be declared in the same file they are defined. This means we can declare a function in a 'header file' (.h file), which we can <code>#include</code> into a 'source file' (.c file). The definition can live inside any source file. This will work as long as all source files are compiled and linked together.</p>
 <p>This leads to more complex compiling, and may require a makefile, but leads to a much more organised project. This will be covered in the next chapter.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="makefiles"><a class="header" href="#makefiles">Makefiles</a></h1>
+<p>This chapter is a GNU make crash course. It will explain how to create a build system for almost any C/C++ project.</p>
+<p>GNU make works by specifying targets. These targets 'produce' a file from a set of arguments - for example:</p>
+<pre><code class="language-make">%.o: %.c
+    gcc -c $&lt; -o $@
+</code></pre>
+<p>%.o specifies a file with the .o extension. %.c specifies a file with the same name, but a .c extension. $&lt; is the first argument (in this case %.c) and %@ is the target (%.o).</p>
+<p>In other words, this target means 'to create a file X.o, we need X.c, and to run <code>gcc -c X.c -o X.o</code>'</p>
+<p>The -c flag in gcc tells it to output an object file (.o) and -o tells it the name of the file to output.</p>
+<p>Another important concept in GNU make is variables.</p>
 
                     </main>
 
