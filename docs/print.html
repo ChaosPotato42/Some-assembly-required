@@ -174,7 +174,65 @@ int main()
 }
 </code></pre>
 <p>Our program is now complete - but we can't run it yet. It needs to be compiled. For a simple program like this, it is easy. Open a terminal/console in the directory containing <code>main.cpp</code> and type <code>g++ main.cpp -o main</code> to compile the program. It can now be run using <code>./main</code> and you should see 'Hello world' appear in the terminal.</p>
+<p>Note: if you have make installed, you can alternatively compile a single file project using <code>make main</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
+<p>Sometimes we will want to supply arguments to our program when we run it. We can access these using the optional <code>argc</code> and <code>argv</code> parameters in <code>main</code>.</p>
+<pre><code class="language-C++">int main(int argc, char** argv)
+{
+    ...
+}
+</code></pre>
+<p><code>argc</code> is the number of arguments supplied. <code>argv</code> is an array of c-strings containing our arguments.</p>
+<p>Note: the first argument (<code>argv[0]</code>) is the command used to run the program.</p>
+<p>Let's create a program to add together two numbers. You can modify your <code>main.cpp</code> or create a new .cpp file, just make sure to compile the correct file when you are finished.</p>
+<p>Firstly, let's make sure the user gave us enough arguments.</p>
+<pre><code class="language-C++">#include &lt;stdio.h&gt;
+
+int main(int argc, char** argv)
+{
+    if(argc &lt;= 2)
+    {
+        return 1; // error exit status
+    }
+
+    return 0;
+}
+</code></pre>
+<p>It might help the user if we give them a message when they supply the wrong arguments. To do this, we can use <code>argv[0]</code>.</p>
+<pre><code class="language-C++">#include &lt;stdio.h&gt;
+
+int main(int argc, char** argv)
+{
+    if(argc &lt;= 2)
+    {
+        printf(&quot;Usage: %s &lt;number&gt; &lt;number&gt;&quot;, argv[0]);
+        return 1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>The '%s' here tells printf to print a string argument, in this case <code>argv[0]</code>. Try compiling this and running it without any arguments.</p>
+<p>After we know we have the correct number of arguments, we can start using them. We will assume the arguments are both numbers containing only digits for the sake of simplicity. We need another include for string conversion functions.</p>
+<pre><code class="language-C++">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char** argv)
+{
+    if(argc &lt;= 2)
+    {
+        printf(&quot;Usage: %s &lt;number&gt; &lt;number&gt;&quot;, argv[0]);
+        return 1;
+    }
+
+    float a = atof(argv[1]);
+    float b = atof(argv[2]);
+
+    printf(&quot;%f + %f = %f&quot;, a, b, a + b);
+
+    return 0;
+}
+</code></pre>
 
                     </main>
 
