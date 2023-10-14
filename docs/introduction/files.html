@@ -137,15 +137,15 @@
                         <h1 id="files"><a class="header" href="#files">Files</a></h1>
 <p>At some point, the day will come when you need to read or write a file. We can't rely on the disk giving us the data correctly, so there is a lot of error handling involved.</p>
 <p>TL;DR: this is going to sting a bit.</p>
-<p>No matter what we do with a file, we need to open it first. The only difference is the mode used to open the file.
-|Mode|Name|Description|If file exists|If file does not exist|
-|----|----|-----------|--------------|----------------------|
-|&quot;r&quot;|read|Open a file for reading|Read from start|Fail to open|
-|&quot;w&quot;|write|Create a file for writing|Destroy contents|Create new|
-|&quot;a&quot;|append|Append to a file|Write to end|Create new|
-|&quot;r+&quot;|read extended|Open a file for read/write|Read from start|Error|
-|&quot;w+&quot;|write extended|Create a file for read/write|Destroy contents|Create new|
-|&quot;a+&quot;|append extended|Open a file for read/write|Write to end|Create new|</p>
+<p>No matter what we do with a file, we need to open it first. The only difference is the mode used to open the file.</p>
+<table><thead><tr><th>Mode</th><th>Name</th><th>Description</th><th>If file exists</th><th>If file does not exist</th></tr></thead><tbody>
+<tr><td>&quot;r&quot;</td><td>read</td><td>Open a file for reading</td><td>Read from start</td><td>Fail to open</td></tr>
+<tr><td>&quot;w&quot;</td><td>write</td><td>Create a file for writing</td><td>Destroy contents</td><td>Create new</td></tr>
+<tr><td>&quot;a&quot;</td><td>append</td><td>Append to a file</td><td>Write to end</td><td>Create new</td></tr>
+<tr><td>&quot;r+&quot;</td><td>read extended</td><td>Open a file for read/write</td><td>Read from start</td><td>Error</td></tr>
+<tr><td>&quot;w+&quot;</td><td>write extended</td><td>Create a file for read/write</td><td>Destroy contents</td><td>Create new</td></tr>
+<tr><td>&quot;a+&quot;</td><td>append extended</td><td>Open a file for read/write</td><td>Write to end</td><td>Create new</td></tr>
+</tbody></table>
 
                     </main>
 
