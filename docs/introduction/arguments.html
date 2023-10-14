@@ -149,15 +149,12 @@
 
 int main(int argc, char** argv)
 {
-    if(argc &lt;= 2)
-    {
-        return 1; // error exit status
-    }
+    if(argc &lt;= 2) return 1; // error exit status
 
     return 0;
 }
 </code></pre>
-<p>It might help the user if we give them a message when they supply the wrong arguments. To do this, we can use <code>argv[0]</code>.</p>
+<p>It might help the user if we give them a message when they supply the wrong arguments. To do this, we can use <code>argv[0]</code>. It is important to mention that the if statemtnt can have it's own block. For now, all you need to know is that it can only hold one statement unless we give it a block.</p>
 <pre><code class="language-C++">#include &lt;stdio.h&gt;
 
 int main(int argc, char** argv)
@@ -187,7 +184,7 @@ int main(int argc, char** argv)
     float a = atof(argv[1]);
     float b = atof(argv[2]);
 
-    printf(&quot;%f + %f = %f&quot;, a, b, a + b);
+    printf(&quot;%f + %f = %f\n&quot;, a, b, a + b);
 
     return 0;
 }

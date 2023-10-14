@@ -135,6 +135,52 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="console-input"><a class="header" href="#console-input">Console Input</a></h1>
+<p>Getting input from the console can be complicated. We need to create an empty string as well as values to store it's initial length. We then pass this to <code>getline</code>, which has the following signature:</p>
+<pre><code class="language-C++">ssize_t getline(char** lineptr, size_t* n, FILE* stream)
+</code></pre>
+<p>This function will return the number of characters in the string, or -1 if it fails. Let's modify our addition program to use stdin instead of command line arguments.</p>
+<pre><code class="language-C++">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main()
+{
+    for(;;) // loop forever
+    {
+        char* in_a = NULL; // string for first argument
+        size_t len_a = 0; // initial length
+        printf(&quot;Enter a number: &quot;);
+        // getline call
+        // 'stdin' is the file stream for console input
+        if(getline(&amp;in_a, &amp;len_a, stdin) &lt; 0)
+        {
+            // clean up the string
+            free(in_a);
+            // exit
+            return 0;
+        }
+
+        char* in_b = NULL;
+        size_t len_b = 0;
+        printf(&quot;Enter a number: &quot;);
+        if(getline(&amp;in_b, &amp;len_b, stdin) &lt; 0)
+        {
+            free(in_b);
+            // exit
+            return 0;
+        }
+
+        float a = atof(in_a);
+        float b = atof(in_b);
+
+        printf(&quot;%f + %f = %f\n&quot;, a, b, a + b);
+
+        // clean up the strings
+        free(in_a);
+        free(in_b);
+    }    
+}
+</code></pre>
+<p>As you can see, this program has no end point - it loops forever. To exit, either use ctrl-c to kill the program from the terminal, or ctrl-d to send an EOF (end of file) character, which will cause <code>getline</code> to fail (which we catch inside the if statements).</p>
 
                     </main>
 
