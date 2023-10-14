@@ -146,6 +146,10 @@
 <tr><td>&quot;w+&quot;</td><td>write extended</td><td>Create a file for read/write</td><td>Destroy contents</td><td>Create new</td></tr>
 <tr><td>&quot;a+&quot;</td><td>append extended</td><td>Open a file for read/write</td><td>Write to end</td><td>Create new</td></tr>
 </tbody></table>
+<p>To open a file, we need to call <code>fopen</code>, which has the following signature:</p>
+<pre><code class="language-C++">FILE* fopen(const char* filename, const char* mode);
+</code></pre>
+<p>This return a pointer to a file handle, and requires a filename and a mode from the table above.</p>
 
                     </main>
 
