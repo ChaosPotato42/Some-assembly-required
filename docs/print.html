@@ -399,10 +399,26 @@ int main()
 <pre><code class="language-make">%.o: %.c
     gcc -c $&lt; -o $@
 </code></pre>
-<p>%.o specifies a file with the .o extension. %.c specifies a file with the same name, but a .c extension. $&lt; is the first argument (in this case %.c) and %@ is the target (%.o).</p>
+<p>%.o specifies a file with the .o extension. %.c specifies a file with the same name, but a .c extension. $&lt; is the first argument (in this case %.c) and %@ is the target (%.o). We can also use $^ which specifies all arguments</p>
 <p>In other words, this target means 'to create a file X.o, we need X.c, and to run <code>gcc -c X.c -o X.o</code>'</p>
 <p>The -c flag in gcc tells it to output an object file (.o) and -o tells it the name of the file to output.</p>
-<p>Another important concept in GNU make is variables.</p>
+<p>Another important concept in GNU make is variables. Variables can be defined, redefined and appended. To define or redefine a variable 'VAR' use <code>VAR := ...</code>.</p>
+<p>Note: the first (or only) definition of a variable can also be written as <code>VAR = ...</code>.</p>
+<p>To append a variable, either use <code>VAR := $(VAR) ...</code>, or <code>VAR += ...</code>.</p>
+<p>With this information, we can use variables in our targets:</p>
+<pre><code class="language-make">TARGET = main
+OBJECTS = main.o
+
+$(TARGET): $(OBJECTS)
+    gcc $^ -o $@
+
+%.o: %.c
+    gcc -c $&lt; -o $@
+</code></pre>
+<p>This makefile will compile <code>main.c</code> into <code>main.o</code>, and then produce <code>main</code>.</p>
+<p>This becomes more powerful if we have a large project with many files, as we can add them to <code>OBJECTS</code>, or even use a file search to find all source files and compile them.</p>
+<p>Compiler flags can also be defined easily inside makefiles. For gcc, the variable name <code>CFLAGS</code> is often used, and for c++, <code>CXXFLAGS</code> is often used. For the final stage where object files are linked into a program, <code>LDFLAGS</code> is used. Our simple examples don't currently require any flags, but they will be introduced as an when required.</p>
+<p>It is also important to note that C and C++ source files both produce .o object files that can be linked together. This will be covered in more depth later, but the idea is that a project can utilise both languages.</p>
 
                     </main>
 
