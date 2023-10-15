@@ -178,7 +178,7 @@ int main()
 <p>Our program is now complete - but we can't run it yet. It needs to be compiled. For a simple program like this, it is easy. Open a terminal/console in the directory containing <code>main.cpp</code> and type <code>g++ main.cpp -o main</code> to compile the program. It can now be run using <code>./main</code> and you should see 'Hello world' appear in the terminal.</p>
 <p>Note: if you have make installed, you can alternatively compile a single file project using <code>make main</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
-<p>Sometimes we will want to supply arguments to our program when we run it. We can access these using the optional <code>argc</code> and <code>argv</code> parameters in <code>main</code>.</p>
+<p>Sometimes we will want to supply arguments to our program when we run it. A command line argument is supplied after the name of the program when it is running. For example, to run the program <code>main</code> with the argument <code>hello world</code>, we would write <code>./main &quot;hello world&quot;</code> (quotes are used to make sure <code>hello</code> and <code>world</code> don't become separate arguments). We can access these using the optional <code>argc</code> and <code>argv</code> parameters in <code>main</code>.</p>
 <pre><code class="language-C++">int main(int argc, char** argv)
 {
     ...
@@ -424,6 +424,12 @@ $(TARGET): $(OBJECTS)
 <p>Later we will build a makefile generator to configure large projects effortlessly, but for now, this is more than sufficient.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="containers"><a class="header" href="#containers">Containers</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c-arrays"><a class="header" href="#c-arrays">C Arrays</a></h1>
+<p>These are the simplest type of container. So simple in fact that they don't really count as one, but they are used everywhere and form the foundation of most containers.</p>
+<p>An array in C is simply a pointer to a fixed size region of memory. Pointers will be explained later, but for now a pointer and an array can be thought of as the same.</p>
+<p>We have already seen an array before - <code>argv</code> from main. <code>argv</code> is an array of <code>char*</code> and <code>char*</code> is an array of characters. <code>argv</code> can actually be written in two equivalent forms:</p>
+<pre><code class="language-C++">char** argv
+char* argv[]
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vectors"><a class="header" href="#vectors">Vectors</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lists"><a class="header" href="#lists">Lists</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hash-maps"><a class="header" href="#hash-maps">Hash Maps</a></h1>

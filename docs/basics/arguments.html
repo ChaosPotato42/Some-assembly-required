@@ -135,7 +135,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
-<p>Sometimes we will want to supply arguments to our program when we run it. We can access these using the optional <code>argc</code> and <code>argv</code> parameters in <code>main</code>.</p>
+<p>Sometimes we will want to supply arguments to our program when we run it. A command line argument is supplied after the name of the program when it is running. For example, to run the program <code>main</code> with the argument <code>hello world</code>, we would write <code>./main &quot;hello world&quot;</code> (quotes are used to make sure <code>hello</code> and <code>world</code> don't become separate arguments). We can access these using the optional <code>argc</code> and <code>argv</code> parameters in <code>main</code>.</p>
 <pre><code class="language-C++">int main(int argc, char** argv)
 {
     ...
