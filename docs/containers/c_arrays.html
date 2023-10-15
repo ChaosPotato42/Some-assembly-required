@@ -141,6 +141,60 @@
 <pre><code class="language-C++">char** argv
 char* argv[]
 </code></pre>
+<p>These two only differ when we first define our array. Here are two definitions on an integer array to explain the differences:</p>
+<pre><code class="language-C++">int my_array[] =
+{
+    ... // comma separated elements
+    // size is filled out automatically from how many elements we have
+    // the array is initialised with these elements when the program starts
+};
+
+int my_array[5]; // define an array of 5 ints
+
+int* my_array; // define an empty array (must be allocated manually)
+</code></pre>
+<p>There are some rules to how arrays are allocated. An array defined using square brackets <code>[]</code> can be defined in two places - inside a block or outside of any block. When defined inside a block, this array can take a variable as it's length:</p>
+<pre><code class="language-C++">int main()
+{
+    int length = 42;
+    int my_array[length]; // 42 ints
+    length++; // length is now 43, array still contains 42 ints
+}
+</code></pre>
+<p>When defined outside of a block, the array can only take a literal value (not a variable):</p>
+<pre><code class="language-C++">int my_array[42]; // this is okay
+
+int length = 42;
+int my_array[length]; // this is not okay
+</code></pre>
+<p>An array defined using a pointer <code>*</code> has no defined length, and starts without any data. These arrays need to be initialised. We can either allocate the memory ourselves or point this array to an existing array's data.</p>
+<pre><code class="language-C++">int main()
+{
+    int my_array[42];
+
+    int* my_array_2 = my_array; // has the same data as my_array
+    // this is not a copy of the original array, it IS the original array
+
+    int* my_array_3 = my_array_2; // same applies here
+
+    // malloc takes a number of bytes to allocate, so we need to multiply our length by the size of one element
+    int* my_array_4 = malloc(42 * sizeof(int)); // this allocates a new array of 42 ints
+    // anything allocated using malloc must be free'd later
+    free(my_array_4);
+}
+</code></pre>
+<p>Arrays formed with <code>malloc</code> can be resized, leading to variable length arrays (dynamic arrays or sometimes called vectors):</p>
+<pre><code class="language-C++">int main()
+{
+    int* my_array = malloc(42 * sizeof(int));
+    my_array = realloc(my_array, 52 * sizeof(int));
+    // error handling for realloc not included for simplicity
+
+    free(my_array);
+}
+</code></pre>
+<p><code>realloc</code> can return <code>NULL</code>, so it's result should be stored in a temporary variable and checked. This is because if <code>realloc</code> fails, it does not <code>free</code> the original array, and by setting it to <code>NULL</code>, we can no longer <code>free</code> it ourselves, so the array will remain in memory until the program exits. This is called a memory leak.</p>
+<p>Indexing an element from an array is easy - to index element <code>n</code> from an array <code>my_array</code>, use <code>my_array[n]</code>. The first element has index <code>0</code>. The reason for this will be explained later.</p>
 
                     </main>
 
