@@ -485,28 +485,10 @@ int my_array[length]; // this is not okay
 <p><code>realloc</code> can return <code>NULL</code>, so it's result should be stored in a temporary variable and checked. This is because if <code>realloc</code> fails, it does not <code>free</code> the original array, and by setting it to <code>NULL</code>, we can no longer <code>free</code> it ourselves, so the array will remain in memory until the program exits. This is called a memory leak.</p>
 <p>Indexing an element from an array is easy - to index element <code>n</code> from an array <code>my_array</code>, use <code>my_array[n]</code>. The first element has index <code>0</code>. The reason for this will be explained later.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vectors"><a class="header" href="#vectors">Vectors</a></h1>
-<p>As touched upon previously, a vector is a dynamic or resizable array. These can be defined using some C macros. Macros are powerful, but should be used carefully. They do not work like functions, and should not be treated as such. Macros simply generate a block of code directly into where they are used. This means that any variable 'passed' into a macro is actually pasted wherever it is used. If this variable is actually a function call, that function call is pasted wherever the variable is used:</p>
-<pre><code class="language-C++">#define ADD_PRINT(A, B) \ // backslash allows us to continue the macro to the next line
-    printf(&quot;%f + %f = %f\n&quot;, A, B, A + B)
+<p>This is where we start using C++ features. In C++ a dynamic array is called a vector. To use vectors, we need to include the file <code>vector</code></p>
+<pre><code class="language-C++">#include &lt;vector&gt;
 </code></pre>
-<p>If <code>A</code> or <code>B</code> is a function call, it will be inserted twice. If this function has 'side effects' (e.g. modifies some other state in the program), this can lead to problems as it is being called multiple times. You will also notice that macros have no type information in their parameters. This is because they simply copy and paste the arguments. With this in mind, let's create a dynamic array.</p>
-<p>First we need a <code>struct</code> to hold our array. A struct in C is simply a grouping of data stored together.</p>
-<pre><code class="language-C++">typedef struct
-{   // size_t is a 'size type', and is the same size as a pointer
-    // (4 bytes on a 32-bit system, 8 bytes on a 64-bit system)
-    size_t size; // number of elements
-    size_t capacity; // size of backing memory
-    void* elements; // backing memory
-} Array;
-</code></pre>
-<p>Now we can start defining the macros to make the array useful.</p>
-<pre><code class="language-C++">#define ArrayAt(a, index, dataType) \
-    ({ \
-        if((size_t)(index) &gt;= (size_t)((a)-&gt;size)) abort(); \
-        &amp;(((dataType*)(a)-&gt;elements)[index]); \
-    })
-</code></pre>
-<p>This uses a special type of block <code>({})</code>, which emits an rvalue. This value is taken from the last statement in the block that produces a value. The first part of this macro is a bounds check. If the index is greater than the last element in the array, we exit using <code>abort</code>, which generates a core dump for debugging.</p>
+<p>C++ uses namespaces. <code>vector</code> is in the standard namespace <code>std</code>, so to create a vector, we need to use <code>std::vector</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lists"><a class="header" href="#lists">Lists</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hash-maps"><a class="header" href="#hash-maps">Hash Maps</a></h1>
 
